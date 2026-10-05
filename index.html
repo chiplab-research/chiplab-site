@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="ChipLab is an AI-accelerator hardware research lab run by AI coding agents under independent review, directed by its founder.">
+  <title>ChipLab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="brand">ChipLab</p>
+      <nav aria-label="Sections">
+        <a href="#about">About</a>
+        <a href="#process">How it works</a>
+        <a href="#open-source">Open source</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="about" class="intro">
+      <h1>A hardware research lab run by AI coding agents</h1>
+      <p class="lede">
+        ChipLab designs and verifies AI-accelerator hardware. The engineering is done by AI coding agents
+        (Claude and Codex) and directed by the lab's founder. Every result an agent produces is checked by a
+        different agent before it is accepted.
+      </p>
+      <p>
+        The lab works only with free and open-source tools: Yosys, Verilator, Icarus Verilog and OpenROAD.
+        Its work so far is design, simulation and open physical-design flows. No chip has been fabricated.
+      </p>
+      <p>
+        ChipLab is operated by Donmakino LLC (dba ChipLab), a Virginia company.
+      </p>
+    </section>
+
+    <section id="process">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Issue</h3>
+          <p>Each piece of work starts as an issue with one question and a check that can fail.</p>
+        </li>
+        <li>
+          <h3>Agent</h3>
+          <p>
+            One agent claims the issue and works on its own branch, in a pinned open-source toolchain. It opens
+            a pull request with a short result note: the claim, the numbers, the method and the limits.
+          </p>
+        </li>
+        <li>
+          <h3>Independent review</h3>
+          <p>
+            A different agent recomputes the claim at the exact commit and posts a verdict that names that
+            commit: confirmed, or a specific discrepancy. Agents never review their own work.
+          </p>
+        </li>
+        <li>
+          <h3>Merge train</h3>
+          <p>
+            A pull request merges only when its current commit carries a confirmed verdict and its checks pass.
+            A new push needs a new verdict. Failed attempts and negative results stay on record.
+          </p>
+        </li>
+      </ol>
+
+      <h3 class="subhead">The record so far</h3>
+      <p class="note">
+        From the lab's own GitHub history, 23 September to 4 October 2026 (12 days). The first days ran under a
+        temporary self-review policy. Independent review has dominated since 29 September, and the self-review
+        policy formally ended on 3 October.
+      </p>
+      <dl class="stats">
+        <div>
+          <dt>Pull requests merged</dt>
+          <dd>1,227 <span>of 1,365 opened</span></dd>
+        </div>
+        <div>
+          <dt>Independent review verdicts</dt>
+          <dd>1,221</dd>
+        </div>
+        <div>
+          <dt>Verdicts that found a discrepancy</dt>
+          <dd>23.3% <span>263 of 1,131 decisive verdicts</span></dd>
+        </div>
+        <div>
+          <dt>Reviewed pull requests that needed a fix round</dt>
+          <dd>170 <span>of 731</span></dd>
+        </div>
+        <div>
+          <dt>Merged results that report a negative or failed outcome</dt>
+          <dd>at least 45 <span>of 446</span></dd>
+        </div>
+        <div>
+          <dt>Merged pull requests with an independent verdict</dt>
+          <dd>688 <span>of 1,227 (56%)</span></dd>
+        </div>
+      </dl>
+
+      <h3 class="subhead">What the reviews catch</h3>
+      <p class="note">A hand-labelled sample of 48 of the 263 discrepancy verdicts, by the main blocking finding.</p>
+      <table class="caught">
+        <thead>
+          <tr><th scope="col">Finding</th><th scope="col" class="num">Share</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Broken check.</strong> A test or validator accepts bad input, never runs, or fails at the reviewed commit.</td><td class="num">33%</td></tr>
+          <tr><td><strong>Unsupported claim.</strong> The text asserts more than the evidence shows.</td><td class="num">25%</td></tr>
+          <tr><td><strong>Wrong number.</strong> A value, bound or unit is wrong.</td><td class="num">17%</td></tr>
+          <tr><td><strong>Stale reference.</strong> A cited commit, file or assumption is out of date or unreadable.</td><td class="num">15%</td></tr>
+          <tr><td><strong>Other.</strong> Not ready, out of scope, or incomplete evidence.</td><td class="num">10%</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Some of the broken-check findings show the author's own check accepting input it should reject: for
+        example, a verifier that accepted a duplicated data shard as a complete packet. The reviews test the
+        checks, not only rerun them.
+      </p>
+    </section>
+
+    <section id="open-source">
+      <h2>Open source</h2>
+      <h3><a href="https://github.com/vera-rubin/bf16-fp32-ops">bf16-fp32-ops</a></h3>
+      <p>
+        A BF16 &times; BF16 &rarr; FP32 multiplier and an FP32 adder in plain, synthesizable SystemVerilog, released
+        under the Apache-2.0 license. The modules match a Python reference model bit for bit on about 884,000
+        test vectors (604,032 multiplies and 279,600 adds), on both Icarus Verilog and Verilator. All six seeded
+        bugs in its mutation tests are caught, and the code is lint-clean under Verilator <code>-Wall</code>. The
+        tests are not exhaustive and are not a formal proof, and no area, timing or power figures are claimed.
+        The RTL, model and tests were written by the lab's agents.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p><a href="mailto:contact@donmakino.com">contact@donmakino.com</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Donmakino LLC (dba ChipLab), Virginia. This site uses no cookies, trackers or analytics.</p>
+    </div>
+  </footer>
+</body>
+</html>
