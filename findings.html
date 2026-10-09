@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Bugs ChipLab's AI agents found in open-source hardware, each reproduced independently before it was reported.">
+  <title>ChipLab findings</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="brand"><a href="./">ChipLab</a></p>
+      <nav aria-label="Sections">
+        <a href="./#about">About</a>
+        <a href="findings.html" aria-current="page">Findings</a>
+        <a href="./#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap wide">
+    <section class="intro">
+      <h1>Findings</h1>
+      <p class="lede">
+        Bugs ChipLab's AI agents found in open-source hardware. One agent finds and documents each bug against the
+        specification; a different agent reproduces it from scratch before it is reported to the project's maintainers.
+      </p>
+      <dl class="stats">
+        <div><dt>Reports filed</dt><dd>18 <span>12 public, 6 private</span></dd></div>
+        <div><dt>Projects</dt><dd>4</dd></div>
+        <div><dt>In shipped silicon RTL</dt><dd>11 <span>public reports</span></dd></div>
+        <div><dt>Fixed upstream</dt><dd>0</dd></div>
+      </dl>
+      <p class="note">
+        Each report carries a <strong>CLAB</strong> reference; this page links to it as
+        <code>findings.html#clab-2026-NNN</code>. Security-relevant findings go through each project's private
+        disclosure channel and appear here without details until the fix ships. Updated 09 October 2026, 16:57 UTC.
+      </p>
+    </section>
+    <section>
+      <table class="findings">
+        <thead><tr><th>Ref</th><th>Project</th><th>Finding</th><th>Status</th><th>Filed</th></tr></thead>
+        <tbody>
+          <tr id="clab-2026-001"><td class="ref">CLAB-2026-001</td><td>olofk/serv</td><td>Reading mie clears MTIE (csrr / csrrs / csrrc with x0 disables timer interrupts)<br><small><a href="https://github.com/olofk/serv/issues/173">olofk/serv/issues/173</a></small></td><td>Open</td><td class="date">2026-10-08</td></tr>
+<tr id=""><td class="ref">(fix for 001)</td><td>olofk/serv</td><td>serv_csr: Return MTIE when reading mie<br><small><a href="https://github.com/olofk/serv/pull/174">olofk/serv/pull/174</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-002"><td class="ref">CLAB-2026-002</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [rv_plic] Completion of a disabled source re-arms its gateway (RISC-V PLIC v1.0.0)<br><small><a href="https://github.com/lowRISC/opentitan/issues/31690">lowRISC/opentitan/issues/31690</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-003"><td class="ref">CLAB-2026-003</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [hmac] Nonzero MSG_LENGTH_LOWER[2:0] on context restore prevents hmac_done (bits documented as ignored)<br><small><a href="https://github.com/lowRISC/opentitan/issues/31691">lowRISC/opentitan/issues/31691</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-004"><td class="ref">CLAB-2026-004</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [spi_host] CONFIGOPTS change after a CSAAT segment to the same CS skips the CS-high boundary<br><small><a href="https://github.com/lowRISC/opentitan/issues/31692">lowRISC/opentitan/issues/31692</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-005"><td class="ref">CLAB-2026-005</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [otbn] Loop back edge at the last IMEM word raises BAD_INSN_ADDR<br><small><a href="https://github.com/lowRISC/opentitan/issues/31693">lowRISC/opentitan/issues/31693</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-006"><td class="ref">CLAB-2026-006</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [uart] RX timeout with TIMEOUT_CTRL.VAL=0 fires on every clock while the RX FIFO is empty<br><small><a href="https://github.com/lowRISC/opentitan/issues/31694">lowRISC/opentitan/issues/31694</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-007"><td class="ref">CLAB-2026-007</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [uart] TX_DONE and STATUS.TXIDLE assert at the start of the STOP bit, one bit time early<br><small><a href="https://github.com/lowRISC/opentitan/issues/31695">lowRISC/opentitan/issues/31695</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-008"><td class="ref">CLAB-2026-008</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [uart] Break detection adds up short lows separated by long idle-high gaps<br><small><a href="https://github.com/lowRISC/opentitan/issues/31696">lowRISC/opentitan/issues/31696</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-009"><td class="ref">CLAB-2026-009</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [uart] A high pulse shorter than half a bit re-arms break detection<br><small><a href="https://github.com/lowRISC/opentitan/issues/31697">lowRISC/opentitan/issues/31697</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-010"><td class="ref">CLAB-2026-010</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [i2c] Queued FMT commands still execute after BUS_TIMEOUT halts the controller<br><small><a href="https://github.com/lowRISC/opentitan/issues/31698">lowRISC/opentitan/issues/31698</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-011"><td class="ref">CLAB-2026-011</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [i2c] Retry after arbitration loss sends a 5-bit address (bit_index not reset on arbitration abort)<br><small><a href="https://github.com/lowRISC/opentitan/issues/31699">lowRISC/opentitan/issues/31699</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-012"><td class="ref">CLAB-2026-012</td><td>lowRISC/opentitan</td><td><span class="badge">shipped</span> [entropy_src] Repetition count tests count a phantom zero sample after enable (cutoff C reached after C-1 leading zeros)<br><small><a href="https://github.com/lowRISC/opentitan/issues/31700">lowRISC/opentitan/issues/31700</a></small></td><td>Open</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-013"><td class="ref">CLAB-2026-013</td><td>lowRISC/opentitan</td><td>Reported privately to the lowRISC/opentitan security team. Details are published after the fix.<br><small></small></td><td>Reported</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-014"><td class="ref">CLAB-2026-014</td><td>lowRISC/opentitan</td><td>Reported privately to the lowRISC/opentitan security team. Details are published after the fix.<br><small></small></td><td>Reported</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-015"><td class="ref">CLAB-2026-015</td><td>lowRISC/opentitan</td><td>Reported privately to the lowRISC/opentitan security team. Details are published after the fix.<br><small></small></td><td>Reported</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-019"><td class="ref">CLAB-2026-019</td><td>chipsalliance/caliptra-rtl</td><td>Reported privately to the chipsalliance/caliptra-rtl security team. Details are published after the fix.<br><small></small></td><td>Reported</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-021"><td class="ref">CLAB-2026-021</td><td>chipsalliance/caliptra-rtl</td><td>Reported privately to the chipsalliance/caliptra-rtl security team. Details are published after the fix.<br><small></small></td><td>Reported</td><td class="date">2026-10-09</td></tr>
+<tr id="clab-2026-020"><td class="ref">CLAB-2026-020</td><td>chipsalliance/adams-bridge</td><td>Reported privately to the chipsalliance/adams-bridge security team. Details are published after the fix.<br><small></small></td><td>Reported</td><td class="date">2026-10-09</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer class="wrap"><p class="note">ChipLab is operated by Donmakino LLC (dba ChipLab). <a href="./">Home</a></p></footer>
+</body>
+</html>
