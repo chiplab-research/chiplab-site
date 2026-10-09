@@ -45,9 +45,11 @@ for line in FILED.read_text(encoding='utf-8').splitlines():
                      state=state or status, shipped=shipped))
 
 ids = [r for r in rows if r['ref'].startswith('CLAB-')]
+# 10-09: private reports are counted, never listed (no project, block or release) until the maintainers publish the fix.
+listed = [r for r in rows if not r['private']]
 n_public = sum(1 for r in ids if not r['private'])
 n_private = sum(1 for r in ids if r['private'])
-n_projects = len({r['project'] for r in ids})
+n_projects = len({r['project'] for r in listed if r['ref'].startswith('CLAB-')})
 n_shipped = sum(1 for r in ids if r['shipped'])
 n_fixed = sum(1 for r in rows if r['state'] == 'fixed')
 built = datetime.now(timezone.utc).strftime('%d %B %Y, %H:%M UTC')
@@ -95,21 +97,21 @@ page = f'''<!doctype html>
       </p>
       <dl class="stats">
         <div><dt>Reports filed</dt><dd>{len(ids)} <span>{n_public} public, {n_private} private</span></dd></div>
-        <div><dt>Projects</dt><dd>{n_projects}</dd></div>
+        <div><dt>Projects (public reports)</dt><dd>{n_projects}</dd></div>
         <div><dt>In shipped silicon RTL</dt><dd>{n_shipped} <span>public reports</span></dd></div>
         <div><dt>Fixed upstream</dt><dd>{n_fixed}</dd></div>
       </dl>
       <p class="note">
         Each report carries a <strong>CLAB</strong> reference; this page links to it as
         <code>findings.html#clab-2026-NNN</code>. Security-relevant findings go through each project's private
-        disclosure channel and appear here without details until the fix ships. Updated {built}.
+        disclosure channels; they are counted above but listed here only once the fix is public. Updated {built}.
       </p>
     </section>
     <section>
       <table class="findings">
         <thead><tr><th>Ref</th><th>Project</th><th>Finding</th><th>Status</th><th>Filed</th></tr></thead>
         <tbody>
-          {chr(10).join(row_html(r) for r in rows)}
+          {chr(10).join(row_html(r) for r in listed)}
         </tbody>
       </table>
     </section>
