@@ -13,7 +13,9 @@ SITE = Path(__file__).resolve().parent.parent
 FILED = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(r'C:\Users\poolhost\workspaces\bughunt\FILED.md')
 # Public findings present in RTL that shipped in silicon or in a tagged release (from each finding's verified record).
 SHIPPED = {'earlgrey_1.0.0': ('lowRISC/opentitan', ['31690', '31691', '31692', '31693', '31694', '31695', '31696',
-                                                    '31697', '31698', '31699', '31700'])}
+                                                    '31697', '31698', '31699', '31700']),
+            # 10-09: same lines as Hazard3 v1.0-rc1, the RP2350's core; #52 (unsigned AMOs) is masked there by Zbb=1.
+            'hazard3 v1.0-rc1 (RP2350)': ('Wren6991/Hazard3', ['50', '51'])}
 
 
 def gh_title(url):
@@ -39,7 +41,7 @@ for line in FILED.read_text(encoding='utf-8').splitlines():
     private = '(private)' in project
     project = project.replace(' (private)', '')
     title, state = (None, None) if private else gh_title(report)
-    shipped = any(re.search(rf'/{n}$', report) for _, (p, ns) in SHIPPED.items() for n in ns)
+    shipped = any(re.search(rf'github\.com/{p}/(issues|pull)/{n}$', report) for _, (p, ns) in SHIPPED.items() for n in ns)
     rows.append(dict(ref=ref, date=date[:10], project=project, private=private, report=report,
                      title=title or ('Fix pull request' if '/pull/' in report else ''),
                      state=state or status, shipped=shipped))
