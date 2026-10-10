@@ -22,7 +22,9 @@ CAUSES = {
     'hazard3': {'known': [('Fixed on develop', 'https://github.com/Wren6991/Hazard3/commit/6adda670')]},
     'veer-el2': {'known': [('Reported upstream', 'https://github.com/chipsalliance/Cores-VeeR-EL2/pull/138')]},
     'serv': {'new': 3, 'known': [('Discussed upstream', 'https://github.com/olofk/serv/pull/31')]},
-    'vexriscv': {'pending': 1}, 'darkriscv': {'pending': 2}, 'caliptra-veer': {'pending': 1},
+    'vexriscv': {'known': [('Documented behaviour (FENCE.I flush recipe)', 'https://github.com/SpinalHDL/VexRiscv')]},
+    'darkriscv': {'new': 2},
+    'caliptra-veer': {'known': [('Same decoder as VeeR EL2; reported upstream', 'https://github.com/chipsalliance/Cores-VeeR-EL2/pull/138')]},
 }
 KIND = {'core deviation': 'dev', 'known': 'known', 'harness': 'harness', 'harness problem': 'harness', 'unresolved': 'open'}
 
