@@ -13,7 +13,7 @@ SITE = Path(__file__).resolve().parent.parent
 FILED = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(r'C:\Users\poolhost\workspaces\bughunt\FILED.md')
 # 10-10 disclosure gate: public issues the gate routed to the projects' security teams are shown like private reports
 # (counted, not listed) until those teams decide. No "shipped silicon" emphasis on anything.
-HELD = {'lowRISC/opentitan': [str(n) for n in range(31690, 31701)], 'Wren6991/Hazard3': ['50', '51']}
+HELD = {'lowRISC/opentitan': [str(n) for n in range(31690, 31701)]}  # Hazard3 #50/#51 cleared by the owner 10-10
 
 
 def gh_title(url):
