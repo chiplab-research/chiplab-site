@@ -11,11 +11,9 @@ from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
 FILED = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(r'C:\Users\poolhost\workspaces\bughunt\FILED.md')
-# Public findings present in RTL that shipped in silicon or in a tagged release (from each finding's verified record).
-SHIPPED = {'earlgrey_1.0.0': ('lowRISC/opentitan', ['31690', '31691', '31692', '31693', '31694', '31695', '31696',
-                                                    '31697', '31698', '31699', '31700']),
-            # 10-09: same lines as Hazard3 v1.0-rc1, the RP2350's core; #52 (unsigned AMOs) is masked there by Zbb=1.
-            'hazard3 v1.0-rc1 (RP2350)': ('Wren6991/Hazard3', ['50', '51'])}
+# 10-10 disclosure gate: public issues the gate routed to the projects' security teams are shown like private reports
+# (counted, not listed) until those teams decide. No "shipped silicon" emphasis on anything.
+HELD = {'lowRISC/opentitan': [str(n) for n in range(31690, 31701)], 'Wren6991/Hazard3': ['50', '51']}
 
 
 def gh_title(url):
@@ -38,10 +36,11 @@ for line in FILED.read_text(encoding='utf-8').splitlines():
         continue
     cells = [c.strip() for c in line.strip('|').split('|')]
     ref, date, project, _finding, report, status = cells[:6]
-    private = '(private)' in project
+    private = '(private)' in project or any(re.search(rf'github\.com/{p}/(issues|pull)/{n}$', report)
+                                              for p, ns in HELD.items() for n in ns)
     project = project.replace(' (private)', '')
     title, state = (None, None) if private else gh_title(report)
-    shipped = any(re.search(rf'github\.com/{p}/(issues|pull)/{n}$', report) for _, (p, ns) in SHIPPED.items() for n in ns)
+    shipped = False
     rows.append(dict(ref=ref, date=date[:10], project=project, private=private, report=report,
                      title=title or ('Fix pull request' if '/pull/' in report else ''),
                      state=state or status, shipped=shipped))
@@ -98,9 +97,8 @@ page = f'''<!doctype html>
         specification; a different agent reproduces it from scratch before it is reported to the project's maintainers.
       </p>
       <dl class="stats">
-        <div><dt>Reports filed</dt><dd>{len(ids)} <span>{n_public} public, {n_private} private</span></dd></div>
+        <div><dt>Reports filed</dt><dd>{len(ids)} <span>{n_public} public, {n_private} via security teams</span></dd></div>
         <div><dt>Projects (public reports)</dt><dd>{n_projects}</dd></div>
-        <div><dt>In shipped silicon RTL</dt><dd>{n_shipped} <span>public reports</span></dd></div>
         <div><dt>Fixed upstream</dt><dd>{n_fixed}</dd></div>
       </dl>
       <p class="note">
