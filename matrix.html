@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="The official RISC-V architecture tests, run against 11 open-source cores with the Sail reference model.">
+  <title>Conformance Matrix</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="brand"><a href="./">ChipLab</a></p>
+      <nav aria-label="Sections">
+        <a href="./#about">About</a>
+        <a href="findings.html">Findings</a>
+        <a href="matrix.html" aria-current="page">Matrix</a>
+        <a href="./#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap wide">
+    <section class="intro">
+      <h1>Open Silicon Conformance Matrix</h1>
+      <p class="lede">
+        The official RISC-V architecture tests, run against 11 open-source cores and compared with the Sail
+        reference model. One agent runs each core; a different agent re-checks every failure before anything is
+        reported.
+      </p>
+      <dl class="stats">
+        <div><dt>Cores</dt><dd>11</dd></div>
+        <div><dt>Tests passed</dt><dd>1596 <span>of 1649 run</span></dd></div>
+        <div><dt>No new deviation</dt><dd>7 <span>cores</span></dd></div>
+      </dl>
+    </section>
+    <section>
+      <div class="scroll">
+      <table class="findings matrix">
+        <thead><tr><th>Core</th><th>ISA tested</th><th>Pass</th><th>Fail</th><th>Rate*</th><th>Spec deviations</th>
+        <th>Other failures</th><th>Skipped</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://github.com/openhwgroup/cv32e40p">CV32E40P</a><br><small><code>97086e95</code></small></td><td><small>RV32IMC_Zicsr_Zifencei_Zicntr_Zihpm</small></td><td class="num">120</td><td class="num">1</td><td class="num">100.0%</td><td><span class="muted">none</span></td><td><small>1 harness</small></td><td class="num">6</td></tr>
+<tr><td><a href="https://github.com/openhwgroup/cva6">CVA6</a><br><small><code>81245a47</code></small></td><td><small>RV64IMAFDCB_Zicsr_Zifencei_Zba_Zbb_Zbc_Zbs_Zcb_Zicond_Zicntr_Zihpm</small></td><td class="num">438</td><td class="num">8</td><td class="num">98.6%</td><td>6 tests on known issues</td><td><small>2 harness</small></td><td class="num">385</td></tr>
+<tr><td><a href="https://github.com/darklife/darkriscv">DarkRISCV</a><br><small><code>974034aa</code></small></td><td><small>RV32I_Zicsr</small></td><td class="num">40</td><td class="num">7</td><td class="num">85.1%</td><td>2 being verified</td><td><small>-</small></td><td class="num">560</td></tr>
+<tr><td><a href="https://github.com/Wren6991/Hazard3">Hazard3</a><br><small><code>8af99293</code></small></td><td><small>RV32IMAC_Zicsr_Zifencei_Zba_Zbb_Zbc_Zbs_Zcb_Zclsd_Zcmp_Zilsd</small></td><td class="num">172</td><td class="num">7</td><td class="num">97.7%</td><td><a href="https://github.com/Wren6991/Hazard3/commit/6adda670">Fixed on develop</a></td><td><small>3 harness, 2 unresolved</small></td><td class="num">9</td></tr>
+<tr><td><a href="https://github.com/lowRISC/ibex">Ibex</a><br><small><code>af456e25</code></small></td><td><small>rv32imc_zicntr_zicsr_zifencei_zihpm</small></td><td class="num">127</td><td class="num">2</td><td class="num">100.0%</td><td><span class="muted">none</span></td><td><small>2 harness</small></td><td class="num">5</td></tr>
+<tr><td><a href="https://github.com/stnolting/neorv32">NEORV32</a><br><small><code>af905649</code></small></td><td><small>rv32imacb_zicsr_zifencei_zba_zbb_zbc_zbs_zca_zcb_zcmop_zibi_zicntr_zicond_zihpm_zimop_zmmul_smcntrpmf</small></td><td class="num">213</td><td class="num">2</td><td class="num">100.0%</td><td><span class="muted">none</span></td><td><small>2 harness</small></td><td class="num">216</td></tr>
+<tr><td><a href="https://github.com/YosysHQ/picorv32">PicoRV32</a><br><small><code>ef203c2b</code></small></td><td><small>RV32IMC</small></td><td class="num">78</td><td class="num">0</td><td class="num">100.0%</td><td><span class="muted">none</span></td><td><small>-</small></td><td class="num">529</td></tr>
+<tr><td><a href="https://github.com/olofk/serv">SERV</a><br><small><code>f200eb2e</code></small></td><td><small>RV32IMCZicsr_Zifencei</small></td><td class="num">78</td><td class="num">11</td><td class="num">88.6%</td><td><strong>3 new</strong> <small>(going to the maintainer first)</small><br><a href="https://github.com/olofk/serv/pull/31">Discussed upstream</a></td><td><small>1 harness, 1 unresolved</small></td><td class="num">34</td></tr>
+<tr><td><a href="https://github.com/chipsalliance/Cores-VeeR-EL2">VeeR EL2</a><br><small><code>0169d669</code></small></td><td><small>RV32IMC_Zicsr_Zifencei_Zba_Zbb_Zbc_Zbs</small></td><td class="num">145</td><td class="num">3</td><td class="num">99.3%</td><td><a href="https://github.com/chipsalliance/Cores-VeeR-EL2/pull/138">Reported upstream</a></td><td><small>2 harness</small></td><td class="num">883</td></tr>
+<tr><td><a href="https://github.com/chipsalliance/caliptra-rtl">VeeR EL2 in Caliptra</a><br><small><code>7b901d59</code></small></td><td><small>rv32imc_zicsr_zifencei_zba_zbb_zbc_zbs</small></td><td class="num">133</td><td class="num">4</td><td class="num">98.5%</td><td>1 being verified</td><td><small>2 harness, 1 unresolved</small></td><td class="num">894</td></tr>
+<tr><td><a href="https://github.com/SpinalHDL/VexRiscv">VexRiscv</a><br><small><code>baf7dc82</code></small></td><td><small>RV32IM_Zicsr_Zifencei</small></td><td class="num">52</td><td class="num">8</td><td class="num">88.1%</td><td>1 being verified<br>6 tests on known issues</td><td><small>1 harness</small></td><td class="num">27</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="note">
+        Run 1, October 2026: riscv-arch-test 4.1.0 (ACT4 tests through a RISCOF adapter), RISCOF 1.25.3, Sail 0.15,
+        Verilator with an Icarus cross-check, each core at the commit shown and in its documented configuration.
+        A <em>harness</em> failure is a problem in our test setup, not in the core, so *Rate leaves those out. <em>Skipped</em> is mostly tests
+        for extensions a core does not claim, plus a few our harness cannot run yet. This is not an official certification. A new deviation is described
+        here only after its maintainer has the report. Updated 10 October 2026, 05:47 UTC.
+      </p>
+    </section>
+  </main>
+  <footer class="wrap"><p class="note">ChipLab is operated by Donmakino LLC (dba ChipLab). <a href="./">Home</a></p></footer>
+</body>
+</html>

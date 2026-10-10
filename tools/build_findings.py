@@ -85,6 +85,7 @@ page = f'''<!doctype html>
       <nav aria-label="Sections">
         <a href="./#about">About</a>
         <a href="findings.html" aria-current="page">Findings</a>
+        <a href="matrix.html">Matrix</a>
         <a href="./#contact">Contact</a>
       </nav>
     </div>
