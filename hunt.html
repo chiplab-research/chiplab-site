@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="ChipLab's AI agents hunt functional bugs in your RTL before tapeout. You pay only for verified bugs.">
+  <title>Pre-tapeout bug hunt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="brand"><a href="./">ChipLab</a></p>
+      <nav aria-label="Sections">
+        <a href="./#about">About</a>
+        <a href="findings.html">Findings</a>
+        <a href="matrix.html">Matrix</a>
+        <a href="hunt.html" aria-current="page">Hunt</a>
+        <a href="./#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro">
+      <h1>Pre-tapeout bug hunt</h1>
+      <p class="lede">
+        We look for functional bugs in your RTL before you tape out. You pay only for bugs that are verified.
+      </p>
+      <p>
+        The engineering is done by AI coding agents (Claude and Codex), directed by ChipLab's founder, Nathan
+        Chandrasekar. One agent finds and documents each bug. A different agent reproduces it independently before
+        it reaches you.
+      </p>
+    </section>
+
+    <section id="report">
+      <h2>What each bug report contains</h2>
+      <ul>
+        <li>A minimal reproducer that runs on your RTL.</li>
+        <li>A trace against a golden model or the specification, showing where the design diverges.</li>
+        <li>The root cause in your RTL.</li>
+        <li>A check against your known-issues list, so you are not sent what you already know.</li>
+      </ul>
+      <p>Results are private to you. We do not publish client findings or file them anywhere.</p>
+    </section>
+
+    <section id="process">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Scope</h3>
+          <p>
+            You send the RTL, the spec or design notes, and your known-issues list. We confirm the design is
+            eligible, screen you against the US Consolidated Screening List, and agree rates and a cap in writing.
+          </p>
+        </li>
+        <li>
+          <h3>Hunt</h3>
+          <p>
+            Agents write tests and compare your design with a golden model or the spec, using open-source
+            simulators (Verilator and Icarus Verilog).
+          </p>
+        </li>
+        <li>
+          <h3>Independent reproduction</h3>
+          <p>
+            A second agent reproduces each candidate bug from scratch. A bug it cannot reproduce is not reported.
+          </p>
+        </li>
+        <li>
+          <h3>Report</h3>
+          <p>You receive each verified bug privately. You pay per verified bug, up to the cap.</p>
+        </li>
+        <li>
+          <h3>Delete</h3>
+          <p>At the end of the engagement we delete your files.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <table class="caught">
+        <thead>
+          <tr><th scope="col">Bug class</th><th scope="col" class="num">Per verified bug</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Minor or corner case</strong></td><td class="num">$250&ndash;400</td></tr>
+          <tr><td><strong>Wrong result</strong> or ISA/spec violation</td><td class="num">$750&ndash;1,000</td></tr>
+          <tr><td><strong>Hang, deadlock</strong> or silent data corruption</td><td class="num">$1,500&ndash;2,500</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Shuttle teams:</strong> a flat pre-tapeout sweep at $750&ndash;1,500 per design.
+      </p>
+      <p>
+        Every engagement has a cap agreed up front (by default $5,000). An optional $500 onboarding fee is credited in full against
+        bug fees.
+      </p>
+      <p class="note">
+        Published starting prices in US dollars. Exact rates are set in writing before work starts. Duplicates of
+        your known issues and bugs we cannot reproduce are not charged.
+      </p>
+    </section>
+
+    <section id="terms">
+      <h2>Terms</h2>
+      <ul>
+        <li>To start, we take only published designs or EAR99 designs. We screen every client against the US Consolidated Screening List.</li>
+        <li>RTL only. We do not take PDK files or NDA'd libraries.</li>
+        <li>Your RTL is processed by the commercial AI models our agents run on, on plans where your data is not used for model training. We name each provider in the engagement letter.</li>
+        <li>Your files are deleted at the end of the engagement.</li>
+        <li>This is not sign-off and not a warranty that your RTL is free of bugs.</li>
+      </ul>
+    </section>
+
+    <section id="deadlines">
+      <h2>Open-PDK shuttle deadlines</h2>
+      <p>Send RTL early enough to fix what we find before your deadline.</p>
+      <table class="caught">
+        <thead>
+          <tr><th scope="col">Shuttle</th><th scope="col">Deadline</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://tinytapeout.com">Tiny Tapeout</a> SKY26d</td><td>Closes 30 November</td></tr>
+          <tr><td><a href="https://tinytapeout.com">Tiny Tapeout</a> GF26c</td><td>Closes 7 December</td></tr>
+          <tr><td><a href="https://chipfoundry.io">ChipFoundry</a> CI2612</td><td>Commitment 4 November; tapeout 7 December</td></tr>
+          <tr><td><a href="https://wafer.space">wafer.space</a> GF180 Run 3</td><td>Slots close 9 December; GDS due 16 December</td></tr>
+        </tbody>
+      </table>
+      <p class="note">2026 dates as published by each platform on 10 October 2026. Check with the platform before planning around them.</p>
+    </section>
+
+    <section id="record">
+      <h2>Public record</h2>
+      <p>
+        The same method, run in public on open-source cores. The
+        <a href="https://chiplab.donmakino.com/matrix">Conformance Matrix</a> runs the official RISC-V architecture
+        tests across 11 open cores. The <a href="https://chiplab.donmakino.com/findings.html">Findings</a> page lists
+        every public report.
+      </p>
+      <table class="caught">
+        <thead>
+          <tr><th scope="col">Project</th><th scope="col">Public issue</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hazard3<br><small class="muted">RISC-V core in Raspberry Pi's RP2350</small></td><td><a href="https://github.com/Wren6991/Hazard3/issues/52">#52</a> amominu.w and amomaxu.w store the signed min/max when Zbb is disabled.</td></tr>
+          <tr><td>Hazard3</td><td><a href="https://github.com/Wren6991/Hazard3/issues/51">#51</a> A host write to data0 while an abstract command is busy changes data0; the spec says it must not.</td></tr>
+          <tr><td>Hazard3</td><td><a href="https://github.com/Wren6991/Hazard3/issues/50">#50</a> sbcs.sbaccess resets to 8-bit instead of 32-bit when System Bus Access is enabled.</td></tr>
+          <tr><td>NEORV32</td><td><a href="https://github.com/stnolting/neorv32/issues/1663">#1663</a> A DMA byte-to-word transfer replicates the byte instead of zero-extending it.</td></tr>
+          <tr><td>NEORV32</td><td><a href="https://github.com/stnolting/neorv32/issues/1662">#1662</a> SLINK interrupt-enable bits sit at different positions in the RTL and the datasheet.</td></tr>
+          <tr><td>SERV</td><td><a href="https://github.com/olofk/serv/issues/173">#173</a> Reading mie clears MTIE, which disables timer interrupts.</td></tr>
+          <tr><td>Microwatt</td><td><span class="muted">Under verification.</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p><a href="mailto:agents@donmakino.com">agents@donmakino.com</a></p>
+      <p class="note">
+        Tell us what the design does, its rough size, your shuttle or tapeout date, and whether it is published or
+        EAR99.
+      </p>
+    </section>
+  </main>
+  <footer class="wrap"><p class="note">ChipLab is operated by Donmakino LLC (dba ChipLab). <a href="./">Home</a></p></footer>
+</body>
+</html>
