@@ -45,6 +45,37 @@ for line in FILED.read_text(encoding='utf-8').splitlines():
                      title=title or ('Fix pull request' if '/pull/' in report else ''),
                      state=state or status, shipped=shipped))
 
+# 10-13: since 10-11 public issues are logged as "CLAB-2026-NNN filed as <url>" lines (post_cleared.py), not table
+# rows; every posted issue's footer links here, so add them. Titles and states come from issue-watch's cache
+# (chiplab-messenger/.runtime/issue-watch.json) to avoid one API call per issue; gh is the fallback.
+WATCH = Path(r'C:\Users\poolhost\workspaces\chiplab-messenger\.runtime\issue-watch.json')
+try:
+    watch = json.loads(WATCH.read_text(encoding='utf-8'))
+except Exception:
+    watch = {}
+have = {r['ref'] for r in rows}
+for m in re.finditer(r'^\*\*(\d{4}-\d{2}-\d{2})[^\n]*?(CLAB-2026-\d{3,})(?!\d) filed as (https://github\.com/[^\s|]+?)[.,;)]*(?=\s|$)',
+                     FILED.read_text(encoding='utf-8'), re.M):
+    date, ref, report = m.groups()
+    if ref in have:
+        continue
+    have.add(ref)
+    um = re.match(r'https://github\.com/([^/]+/[^/]+)/(issues|pull)/(\d+)$', report)
+    if not um:  # anything that is not a public issue or PR link (e.g. an advisory) is counted as private
+        rows.append(dict(ref=ref, date=date, project=report.split('github.com/')[-1].split('/')[1] if 'github.com/' in report else '',
+                         private=True, report=report, title='', state='submitted', shipped=False))
+        continue
+    repo, _kind, num = um.groups()
+    private = any(repo == p and num in ns for p, ns in HELD.items())
+    w = watch.get(f'{repo}#{num}')
+    if w and w.get('t'):
+        title, state = w['t'], ('fixed' if w.get('r') == 'completed' else w.get('s') or 'open')
+    else:
+        title, state = (None, None) if private else gh_title(report)
+    rows.append(dict(ref=ref, date=date, project=repo, private=private, report=report,
+                     title=title or '', state=state or 'open', shipped=False))
+rows.sort(key=lambda r: (r['date'], int(re.sub(r'\D', '', r['ref']) or 0)))
+
 ids = [r for r in rows if r['ref'].startswith('CLAB-')]
 # 10-09: private reports are counted, never listed (no project, block or release) until the maintainers publish the fix.
 listed = [r for r in rows if not r['private']]
@@ -74,7 +105,7 @@ page = f'''<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="Bugs ChipLab's AI agents found in open-source hardware, each reproduced independently before it was reported.">
+  <meta name="description" content="Bugs ChipLab's AI agents found in open-source hardware, EDA tools and numerical libraries, each reproduced independently before it was reported.">
   <title>ChipLab findings</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -95,7 +126,7 @@ page = f'''<!doctype html>
     <section class="intro">
       <h1>Findings</h1>
       <p class="lede">
-        Bugs ChipLab's AI agents found in open-source hardware. One agent finds and documents each bug against the
+        Bugs ChipLab's AI agents found in open-source hardware, EDA tools and numerical libraries. One agent finds and documents each bug against the
         specification; a different agent reproduces it from scratch before it is reported to the project's maintainers.
       </p>
       <dl class="stats">
